@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rishika Kids Learning Zone</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Roboto,system-ui,'Noto Sans Devanagari',sans-serif}
+body{background:linear-gradient(#e6edff,#f5f7ff 40%,#fdf3ff);color:#172044;min-height:100vh;overflow-x:hidden}
+main{max-width:760px;margin:auto;padding:12px 14px 60px}
+button{border:0;cursor:pointer;font-weight:700;color:inherit;font-size:1rem}
+h2{margin:22px 0 4px;font-size:1.5rem}.sub{color:#66708f;margin-bottom:12px}
+.top{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.pill{background:#fff;border-radius:30px;padding:9px 14px;box-shadow:0 4px 0 #c9d2f5}
+.hero{margin-top:12px;border-radius:30px;padding:22px 14px;text-align:center;color:#fff;background:linear-gradient(135deg,#4169e1,#8a4de8 55%,#ee5fa7);box-shadow:0 12px 0 #3b2c9b33,0 20px 40px #6a4de855;position:relative;overflow:hidden}
+.hero h1{font-size:1.7rem;text-shadow:0 2px 0 #3a2a90,0 4px 0 #2d2070,0 8px 12px #0006}
+.stage{perspective:700px;height:130px;display:grid;place-items:center}
+.cube{width:76px;height:76px;position:relative;transform-style:preserve-3d;animation:cube 9s linear infinite}
+.cube i{position:absolute;inset:0;display:grid;place-items:center;font-size:2.6rem;font-style:normal;background:#fff;border:3px solid #ffd54a;border-radius:12px;backface-visibility:hidden}
+@keyframes cube{from{transform:rotateX(-18deg) rotateY(0)}to{transform:rotateX(-18deg) rotateY(360deg)}}
+.float{position:absolute;font-size:1.8rem;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-14px) rotate(12deg)}}
+.classes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cls{background:#fff;border-radius:20px;padding:14px 4px;border:3px solid transparent;box-shadow:0 6px 0 #ccd5f6}
+.cls span{display:block;font-size:2rem;margin-bottom:4px}
+.cls.on{border-color:#4169e1;background:#edf1ff;color:#2848b8;transform:translateY(4px);box-shadow:0 2px 0 #4169e1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.stats div{background:#fff;border-radius:20px;padding:12px;box-shadow:0 6px 0 #ccd5f6}
+.stats b{font-size:1.5rem;display:block}.stats small{color:#66708f}
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px;perspective:1000px}
+.game{background:#fff;border-radius:28px;padding:16px;display:flex;flex-direction:column;gap:8px;transform-style:preserve-3d;box-shadow:0 8px 0 #ccd5f6,0 18px 30px #4169e122;transition:transform .15s}
+.game.pro{background:linear-gradient(160deg,#fff6d6,#fff)}
+.tag{align-self:flex-start;background:#ffedaa;color:#7a5600;font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:20px}
+.icon{width:84px;height:84px;display:grid;place-items:center;font-size:3rem;border-radius:24px;background:linear-gradient(145deg,#fff,#e9eeff);box-shadow:7px 9px 0 #d3daf5;transform:translateZ(35px);animation:bob 4s ease-in-out infinite}
+.game h3{font-size:1.15rem}.game p{color:#66708f;font-size:.9rem;flex:1}
+.play,.big{background:#4169e1;color:#fff;border-radius:16px;padding:13px;box-shadow:0 5px 0 #253f99}
+.pro .play{background:#edf1ff;color:#2848b8;box-shadow:0 5px 0 #c9d2f5}
+button:active{transform:translateY(3px)}
+.panel{background:#fff;border-radius:28px;padding:18px;margin-top:14px;box-shadow:0 8px 0 #ccd5f6;text-align:center;animation:flip .45s}
+@keyframes flip{from{transform:perspective(900px) rotateY(-25deg);opacity:0}}
+.pics{perspective:500px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0;min-height:70px;align-items:center}
+.pics span{font-size:3rem;display:inline-block;animation:spin 3s ease-in-out infinite;filter:drop-shadow(0 10px 5px #0004)}
+.pics span.txt{font-weight:900;color:#4169e1;text-shadow:2px 2px 0 #b9c6f5,4px 4px 0 #9aa9e0}
+@keyframes spin{0%,100%{transform:rotateY(-35deg)}50%{transform:rotateY(35deg) translateY(-10px)}}
+.voice{display:inline-flex;gap:6px;justify-content:center;margin:6px 0}
+.voice button{background:#fff0b8;border-radius:14px;padding:8px 11px;font-size:.85rem}
+.opt{display:flex;gap:8px;align-items:center;margin:10px 0}
+.opt>button{flex:1;background:#edf1ff;border-radius:16px;padding:13px;box-shadow:0 5px 0 #c9d2f5}
+.opt>button.ok{background:#9af0b2;box-shadow:0 5px 0 #3ca75d}.opt>button.no{background:#ffb1b1;box-shadow:0 5px 0 #c95a5a}
+.owl{font-size:4.5rem;display:inline-block;animation:spin 1s ease-in-out infinite}
+.island{height:300px;perspective:800px;position:relative}
+.land{position:absolute;left:50%;top:50%;width:260px;height:260px;margin:-130px;border-radius:50%;background:radial-gradient(#7bd66b 55%,#f4d58a 58% 68%,#46b6e8 70%);transform:rotateX(55deg);transform-style:preserve-3d;box-shadow:0 30px 0 #2484b5}
+.chest{position:absolute;font-size:2.2rem;background:none;transform:rotateX(-55deg);margin:-22px;animation:glow 2s infinite}
+@keyframes glow{50%{filter:drop-shadow(0 0 10px #ffd000)}}
+canvas{width:100%;background:#fff;border:4px dashed #8a4de8;border-radius:18px;touch-action:none}
+.dot{width:36px;height:36px;border-radius:50%;margin:4px;box-shadow:0 4px 0 #0003}
+.note{text-align:left;border-bottom:2px dashed #dbe1fa;padding:10px 0}
+.confetti{position:fixed;top:-30px;font-size:1.5rem;animation:fall 2.2s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg)}}
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;perspective:900px}
+.mcard{background:none;height:100px;padding:0}
+.mcard span{display:block;position:relative;height:100%;transform-style:preserve-3d;transition:transform .4s}
+.mcard i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-size:1.5rem;border-radius:18px;backface-visibility:hidden;box-shadow:0 6px 0 #aab6e8}
+.mcard i:first-child{background:#4169e1}.mcard i:last-child{background:#fff;transform:rotateY(180deg)}
+.mcard.up span{transform:rotateY(180deg)}.mcard.done i:last-child{background:#9af0b2}
+.bar{height:12px;background:#edf1ff;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:#4169e1}
+@media(max-width:360px){.classes{grid-template-columns:repeat(3,1fr)}}
+@media print{body{background:#fff}.top,.big,.voice{display:none}.panel{box-shadow:none;animation:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+/* रंगीन 3D कार्ड */
+.games{gap:22px 18px;perspective:800px;padding:6px 4px}
+.games .game{--a:#ff6b6b;--b:#ff9f43;--d:#b8452f;color:#fff;border:3px solid #ffffffaa;background:linear-gradient(150deg,var(--a),var(--b));transform-style:flat;transform:rotateX(5deg) rotateY(-5deg);box-shadow:3px 3px 0 var(--d),6px 6px 0 var(--d),9px 10px 0 var(--d),12px 22px 24px #2a1a6650,inset 0 3px 0 #fff8}
+.games .game:nth-child(even){transform:rotateX(5deg) rotateY(5deg);box-shadow:-3px 3px 0 var(--d),-6px 6px 0 var(--d),-9px 10px 0 var(--d),-12px 22px 24px #2a1a6650,inset 0 3px 0 #fff8}
+.games .game:nth-child(8n+2){--a:#2f80ed;--b:#22c1dc;--d:#1b4f99}
+.games .game:nth-child(8n+3){--a:#11a36a;--b:#6fcf4a;--d:#0b6b45}
+.games .game:nth-child(8n+4){--a:#8e44ec;--b:#d160e8;--d:#55269a}
+.games .game:nth-child(8n+5){--a:#ec407a;--b:#ff7eb3;--d:#9c2451}
+.games .game:nth-child(8n+6){--a:#0f9b9b;--b:#2fd3b0;--d:#08605f}
+.games .game:nth-child(8n+7){--a:#f2780c;--b:#ffbe2e;--d:#a34d00}
+.games .game:nth-child(8n){--a:#4a47d5;--b:#7b8cff;--d:#2b2987}
+.games .game h3{text-shadow:0 2px 0 var(--d),0 3px 6px #0005;transform:translateZ(30px)}
+.games .game p{color:#fff;text-shadow:0 1px 3px #0008}
+.games .icon{width:92px;height:92px;font-size:3.4rem;background:radial-gradient(circle at 30% 25%,#fff 45%,#ffe9a8);border-radius:50%;box-shadow:0 7px 0 var(--d),0 16px 18px #0005,inset 0 -6px 10px #0002;animation:pop 3.5s ease-in-out infinite}
+@keyframes pop{0%,100%{transform:rotateY(-22deg)}50%{transform:translateY(-7px) rotateY(22deg)}}
+.games .game .play{background:linear-gradient(#fff,#ffefb0);color:#2a1a66;box-shadow:0 6px 0 var(--d),0 10px 12px #0004}
+.games .game .pill{background:#ffffffe8;color:#2a1a66;box-shadow:0 5px 0 var(--d)}
+.games .game .play:active,.games .game .pill:active{transform:translateY(4px);box-shadow:0 1px 0 var(--d)}
+.games .tag{box-shadow:0 3px 0 var(--d)}
+/* चलती हुई पृष्ठभूमि */
+body{background:linear-gradient(120deg,#9fdcff,#d9c2ff,#ffc4dd,#ffe7a8,#b8f2d0);background-size:400% 400%;animation:sky 18s ease infinite}
+@keyframes sky{50%{background-position:100% 100%}}
+#bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+#bg span{position:absolute;left:0;top:0;will-change:transform}
+#bg .up{animation:rise linear infinite}
+@keyframes rise{from{transform:translate(0,110vh) rotate(-15deg)}50%{transform:translate(30px,50vh) rotate(15deg)}to{transform:translate(0,-15vh) rotate(-15deg)}}
+#bg .side{animation:drift linear infinite}
+@keyframes drift{from{transform:translateX(-25vw)}to{transform:translateX(115vw)}}
+h2{text-shadow:0 2px 0 #fff}.sub{color:#3d4670}
+/* हर कार्ड के अंदर चलता एनिमेशन */
+.games .game{position:relative;overflow:hidden;isolation:isolate}
+.fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.fx b{position:absolute;bottom:-40px;font-size:1.7rem;opacity:.8;color:#fff;animation:bubble 5s linear infinite}
+@keyframes bubble{to{transform:translateY(-360px) rotate(360deg)}}
+.fx:after{content:'';position:absolute;top:0;bottom:0;width:45px;left:-80px;background:#fff5;transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite}
+@keyframes shine{60%,100%{left:130%}}
+.ver{text-align:center;margin-top:24px;color:#3d4670}
+/* ===== अंतरिक्ष यात्रा थीम ===== */
+body{background:radial-gradient(circle at 20% 10%,#4b2a91,transparent 45%),radial-gradient(circle at 90% 60%,#0d6c8c,transparent 40%),#090a2a;background-attachment:fixed;animation:none}
+body:before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(#fff 1.5px,transparent 2px),radial-gradient(#ffe48a 1px,transparent 2px);background-size:90px 90px,53px 53px;animation:twinkle 2.5s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.25}}
+#app>h2{color:#fff;text-shadow:0 0 12px #8f7bff}#app>.sub,.ver{color:#c9d0ff}
+.games{display:flex;flex-direction:column;gap:10px;perspective:none;padding:10px 0}
+.games .game,.games .game:nth-child(even){width:68%;align-self:flex-start;align-items:center;text-align:center;background:none;border:0;box-shadow:none;overflow:visible;transform:none;padding:8px}
+.games .game:nth-child(even){align-self:flex-end}
+.games .game:not(:last-child):after{content:'· · · 🚀';position:absolute;bottom:-22px;right:-22%;color:#ffe48a;font-size:1.3rem;letter-spacing:4px;transform:rotate(24deg)}
+.games .game:nth-child(even):not(:last-child):after{content:'🛸 · · ·';right:auto;left:-22%;transform:rotate(-24deg)}
+.games .icon{width:150px;height:150px;font-size:4.6rem;position:relative;margin:14px 0;background:radial-gradient(circle at 30% 26%,#fff 0,var(--b) 22%,var(--a) 55%,var(--d) 82%,#12062e);box-shadow:0 0 35px var(--b),inset -14px -16px 28px #0007;animation:planet 4s ease-in-out infinite}
+.games .icon:after{content:'';position:absolute;width:205px;height:62px;border:7px solid var(--b);border-top-color:transparent;border-radius:50%;transform:rotate(-16deg);filter:drop-shadow(0 4px 3px #0008)}
+@keyframes planet{50%{transform:translateY(-14px) rotate(7deg) scale(1.05)}}
+.games .game h3{font-size:1.3rem;text-shadow:0 0 10px var(--b),0 2px 0 var(--d)}
+.games .game p{flex:none}.games .game .play,.games .game .pill{width:100%;border-radius:40px}
+.games .game .play{background:linear-gradient(#ffe66b,#ffad1f)}
+.fx{display:none}
+</style>
+</head>
+<body>
+<main>
+<div class="top"><button class="pill" id="home">🏠</button><button class="pill" id="lang"></button></div>
+<div id="app"></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
+const btn=(cls,text,fn)=>{const b=el('button',cls,text);b.onclick=fn;return b};
+const rnd=n=>Math.floor(Math.random()*n);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[rnd(a.length)];
+
+let S={stars:0,played:0,best:0,cls:0,lang:'hi'};
+try{Object.assign(S,JSON.parse(localStorage.getItem('rishika')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('rishika',JSON.stringify(S))}catch(e){}};
+let premium=true; // भुगतान शुरू करते समय false करें
+const T=(hi,en)=>S.lang==='hi'?hi:en;
+const CLASSES=['LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5'];
+// स्तर: 0 = LKG/UKG, 1 = कक्षा 1-2, 2 = कक्षा 3-5
+const band=()=>S.cls<2?0:S.cls<4?1:2;
+
+/* ---------- अध्ययन सामग्री ---------- */
+// शब्द: चित्र|English|हिंदी
+const WORDS=`🍎|Apple|सेब
+⚽|Ball|गेंद
+🐱|Cat|बिल्ली
+🐶|Dog|कुत्ता
+🐘|Elephant|हाथी
+🐟|Fish|मछली
+🐐|Goat|बकरी
+🎩|Hat|टोपी
+🍦|Ice cream|आइसक्रीम
+🏺|Jug|जग
+🪁|Kite|पतंग
+🦁|Lion|शेर
+🥭|Mango|आम
+👃|Nose|नाक
+🍊|Orange|संतरा
+🦜|Parrot|तोता
+👸|Queen|रानी
+🐰|Rabbit|खरगोश
+☀️|Sun|सूरज
+🐯|Tiger|बाघ
+☂️|Umbrella|छाता
+🚐|Van|वैन
+⌚|Watch|घड़ी
+🦓|Zebra|ज़ेबरा
+🏠|House|घर
+🌳|Tree|पेड़
+📚|Books|किताबें
+🌙|Moon|चाँद
+🌸|Flower|फूल
+🐄|Cow|गाय`.split('\n').map(x=>x.split('|'));
+// अक्षर|चित्र|शब्द
+const AKSHAR=`अ|🍒|अनार
+आ|🥭|आम
+इ|🌿|इमली
+ई|🎋|ईख
+उ|🦉|उल्लू
+ऊ|🐪|ऊँट
+क|🕊️|कबूतर
+ख|🐰|खरगोश
+ग|🐄|गाय
+घ|🏠|घर
+च|🥄|चम्मच
+छ|☂️|छतरी
+ज|🚢|जहाज़
+झ|🚩|झंडा
+ट|🍅|टमाटर
+ड|🥁|डमरू
+त|🍉|तरबूज़
+द|🦷|दाँत
+न|🚰|नल
+प|🪁|पतंग
+फ|🍇|फल
+ब|🐐|बकरी
+भ|🐻|भालू
+म|🐟|मछली
+र|🛞|रथ
+ल|🌰|लट्टू
+स|🍎|सेब
+ह|🐘|हाथी`.split('\n').map(x=>x.split('|'));
+
+// प्रश्न: चित्र~हिंदी~English~सही~गलत~गलत   (विकल्प "हिंदी=English")
+const parse=s=>s.trim().split('\n').map(l=>{const [p,hi,en,...o]=l.split('~');return{p,hi,en,o:o.map(x=>x.includes('=')?x.split('='):[x,x])}});
+
+const SCIENCE=[parse(`
+👀~हम किससे देखते हैं?~What do we see with?~आँख=Eyes~कान=Ears~नाक=Nose
+👂~हम किससे सुनते हैं?~What do we hear with?~कान=Ears~हाथ=Hands~आँख=Eyes
+👃~हम किससे सूँघते हैं?~What do we smell with?~नाक=Nose~मुँह=Mouth~पैर=Feet
+🐄~दूध कौन देता है?~Who gives us milk?~गाय=Cow~शेर=Lion~तोता=Parrot
+🐟~पानी में कौन रहता है?~Who lives in water?~मछली=Fish~बिल्ली=Cat~मुर्गी=Hen
+🌞~दिन में आसमान में क्या चमकता है?~What shines in the day sky?~सूरज=Sun~चाँद=Moon~दीपक=Lamp
+🍌~पका हुआ केला किस रंग का होता है?~What colour is a ripe banana?~पीला=Yellow~नीला=Blue~काला=Black
+☔~बारिश में क्या काम आता है?~What helps us in the rain?~छाता=Umbrella~पंखा=Fan~चश्मा=Glasses`),
+parse(`
+🌱~पौधे को बढ़ने के लिए क्या चाहिए?~What does a plant need to grow?~पानी और धूप=Water and sunlight~सिर्फ़ पत्थर=Only stones~अँधेरा=Darkness
+🐸~कौन पानी और ज़मीन दोनों पर रह सकता है?~Who can live on water and land?~मेंढक=Frog~गाय=Cow~कबूतर=Pigeon
+🦷~दाँत दिन में कम से कम कितनी बार साफ़ करें?~How many times a day should we brush at least?~दो बार=Twice~कभी नहीं=Never~महीने में एक=Once a month
+🌳~पेड़ का कौन सा भाग मिट्टी के अंदर होता है?~Which part of a tree is under the soil?~जड़=Root~पत्ती=Leaf~फूल=Flower
+🐝~शहद कौन बनाता है?~Who makes honey?~मधुमक्खी=Honeybee~मक्खी=Housefly~तितली=Butterfly
+🌦️~इंद्रधनुष में कितने रंग माने जाते हैं?~How many colours are in a rainbow?~7~5~10
+❄️~पानी जमने पर क्या बनता है?~What does water become when it freezes?~बर्फ़=Ice~भाप=Steam~तेल=Oil
+🥕~हम गाजर का कौन सा भाग खाते हैं?~Which part of a carrot plant do we eat?~जड़=Root~तना=Stem~फूल=Flower
+🚦~लाल बत्ती पर क्या करें?~What do we do at a red light?~रुकें=Stop~दौड़ें=Run~तेज़ चलें=Speed up`),
+parse(`
+🪐~सूरज के सबसे पास कौन सा ग्रह है?~Which planet is closest to the Sun?~बुध=Mercury~मंगल=Mars~पृथ्वी=Earth
+🌳~पौधे भोजन बनाते समय कौन सी गैस लेते हैं?~Which gas do plants take in to make food?~कार्बन डाइऑक्साइड=Carbon dioxide~ऑक्सीजन=Oxygen~हाइड्रोजन=Hydrogen
+🫀~शरीर में खून कौन पंप करता है?~Which organ pumps blood?~हृदय=Heart~फेफड़ा=Lung~पेट=Stomach
+🫁~साँस लेने का मुख्य अंग कौन सा है?~Which is the main organ for breathing?~फेफड़े=Lungs~गुर्दे=Kidneys~जिगर=Liver
+🧲~चुंबक किसे खींचता है?~What does a magnet attract?~लोहा=Iron~लकड़ी=Wood~प्लास्टिक=Plastic
+💧~पानी गर्म करने पर भाप बनना क्या कहलाता है?~Water turning into vapour on heating is called?~वाष्पीकरण=Evaporation~संघनन=Condensation~जमना=Freezing
+🌍~पृथ्वी को अपनी धुरी पर एक चक्कर में कितना समय लगता है?~How long does Earth take to rotate once?~लगभग 24 घंटे=About 24 hours~7 दिन=7 days~एक साल=One year
+🔴~लाल ग्रह किसे कहते हैं?~Which is called the Red Planet?~मंगल=Mars~शुक्र=Venus~शनि=Saturn
+🦴~वयस्क मनुष्य में कितनी हड्डियाँ होती हैं?~How many bones does an adult human have?~206~106~306
+🥦~किसमें विटामिन और खनिज भरपूर होते हैं?~Which is rich in vitamins and minerals?~हरी सब्ज़ियाँ=Green vegetables~टॉफ़ी=Toffee~कोल्ड ड्रिंक=Cold drink`)];
+
+const GK=[parse(`
+🇮🇳~हमारे देश का नाम क्या है?~What is the name of our country?~भारत=India~चीन=China~जापान=Japan
+🦚~भारत का राष्ट्रीय पक्षी कौन सा है?~What is India's national bird?~मोर=Peacock~तोता=Parrot~कौआ=Crow
+🐯~भारत का राष्ट्रीय पशु कौन सा है?~What is India's national animal?~बाघ=Tiger~हाथी=Elephant~घोड़ा=Horse
+🪷~भारत का राष्ट्रीय फूल कौन सा है?~What is India's national flower?~कमल=Lotus~गुलाब=Rose~गेंदा=Marigold
+📅~एक हफ़्ते में कितने दिन होते हैं?~How many days are in a week?~7~5~10`),
+parse(`
+🇮🇳~तिरंगे में सबसे ऊपर कौन सा रंग है?~Which colour is at the top of our flag?~केसरिया=Saffron~हरा=Green~सफ़ेद=White
+🏛️~भारत की राजधानी क्या है?~What is the capital of India?~नई दिल्ली=New Delhi~मुंबई=Mumbai~कोलकाता=Kolkata
+📅~एक साल में कितने महीने होते हैं?~How many months are in a year?~12~10~7
+🌅~सूरज किस दिशा में उगता है?~In which direction does the Sun rise?~पूर्व=East~पश्चिम=West~उत्तर=North
+🖱️~कंप्यूटर में क्लिक करने के लिए क्या है?~What do we click with on a computer?~माउस=Mouse~स्पीकर=Speaker~प्रिंटर=Printer
+⌨️~कंप्यूटर में टाइप किससे करते हैं?~What do we type with?~कीबोर्ड=Keyboard~मॉनिटर=Monitor~माउस=Mouse`),
+parse(`
+📜~भारत का संविधान कब लागू हुआ?~When did India's Constitution come into force?~26 जनवरी 1950=26 January 1950~15 अगस्त 1947=15 August 1947~2 अक्टूबर 1950=2 October 1950
+🎵~राष्ट्रगान 'जन गण मन' किसने लिखा?~Who wrote 'Jana Gana Mana'?~रवींद्रनाथ टैगोर=Rabindranath Tagore~महात्मा गांधी=Mahatma Gandhi~प्रेमचंद=Premchand
+🗺️~क्षेत्रफल में भारत का सबसे बड़ा राज्य कौन सा है?~Which is India's largest state by area?~राजस्थान=Rajasthan~गोवा=Goa~केरल=Kerala
+🌊~सबसे बड़ा महासागर कौन सा है?~Which is the largest ocean?~प्रशांत=Pacific~हिंद=Indian~अटलांटिक=Atlantic
+🌏~सबसे बड़ा महाद्वीप कौन सा है?~Which is the largest continent?~एशिया=Asia~यूरोप=Europe~अफ्रीका=Africa
+🖥️~कंप्यूटर का दिमाग किसे कहते हैं?~What is called the brain of a computer?~CPU~माउस=Mouse~कीबोर्ड=Keyboard
+🔐~पासवर्ड किसे बताना ठीक है?~Who may know your password?~माता-पिता=Your parents~अनजान व्यक्ति=A stranger~सबको=Everyone`)];
+
+const GRAMMAR=[parse(`
+🔤~A के बाद कौन सा अक्षर आता है?~Which letter comes after A?~B~C~D
+🔤~M के बाद कौन सा अक्षर आता है?~Which letter comes after M?~N~L~O`),
+parse(`
+↔️~Big का उल्टा क्या है?~What is the opposite of Big?~Small~Tall~Long
+↔️~Hot का उल्टा क्या है?~What is the opposite of Hot?~Cold~Warm~Wet
+🐱~बहुवचन बताओ: Cat~Plural of Cat?~Cats~Cat~Cates
+📝~खाली जगह भरो: I ___ a boy.~Fill in: I ___ a boy.~am~is~are
+📝~खाली जगह भरो: This is ___ apple.~Fill in: This is ___ apple.~an~a~two
+🧒~कौन सा नाम (noun) है?~Which one is a noun?~School~Run~Quickly`),
+parse(`
+🏃~कौन सा क्रिया शब्द (verb) है?~Which one is a verb?~Jump~Table~Red
+🎨~कौन सा विशेषण (adjective) है?~Which one is an adjective?~Beautiful~Sing~Boy
+👧~Sita के लिए सर्वनाम क्या होगा?~Which pronoun replaces Sita?~She~He~It
+⏪~Go का भूतकाल क्या है?~Past tense of Go?~Went~Goed~Gone
+🐭~बहुवचन बताओ: Mouse (चूहा)~Plural of Mouse (the animal)?~Mice~Mouses~Mices
+↔️~Ancient का उल्टा क्या है?~Opposite of Ancient?~Modern~Old~Huge
+🤝~Happy का समान अर्थ वाला शब्द?~A synonym of Happy?~Glad~Sad~Angry
+📝~भरो: The book is ___ the table.~Fill in: The book is ___ the table.~on~of~to`)];
+
+const HINDI=parse(`
+↔️~'दिन' का उल्टा शब्द क्या है?~Hindi opposite of 'दिन'?~रात~सुबह~शाम
+↔️~'बड़ा' का उल्टा शब्द क्या है?~Hindi opposite of 'बड़ा'?~छोटा~लंबा~मोटा
+👥~'लड़का' का बहुवचन क्या है?~Plural of 'लड़का'?~लड़के~लड़की~लड़कपन
+👧~'राजा' का स्त्रीलिंग क्या है?~Feminine of 'राजा'?~रानी~राजकुमार~प्रजा
+💧~'पानी' का समानार्थी शब्द?~Synonym of 'पानी'?~जल~आग~हवा
+☀️~'सूरज' का समानार्थी शब्द?~Synonym of 'सूरज'?~सूर्य~चंद्र~तारा
+🏷️~किसी के नाम को क्या कहते हैं?~What is a naming word called in Hindi?~संज्ञा~क्रिया~विशेषण
+🏃~काम बताने वाले शब्द को क्या कहते हैं?~What is an action word called in Hindi?~क्रिया~संज्ञा~सर्वनाम
+✍️~सही शब्द चुनो~Choose the correct spelling~विद्यालय~विधालय~विद्यालेय`);
+
+// कहानी: चित्र, [हिंदी शीर्षक, English], [हिंदी, English]
+const STORIES=[
+['🐢🐇',['कछुआ और खरगोश','The Tortoise and the Hare'],['खरगोश तेज़ था, इसलिए रास्ते में सो गया। कछुआ धीरे-धीरे चलता रहा और दौड़ जीत गया। सीख: लगातार मेहनत से जीत मिलती है।','The hare was fast, so he slept on the way. The tortoise kept walking and won the race. Moral: steady effort wins.']],
+['🐦🏺',['प्यासा कौआ','The Thirsty Crow'],['एक प्यासे कौए को घड़े में थोड़ा पानी दिखा। उसने कंकड़ डाले, पानी ऊपर आया और उसने पी लिया। सीख: सोचने से रास्ता मिलता है।','A thirsty crow saw a little water in a pot. He dropped pebbles in, the water rose and he drank. Moral: think and you will find a way.']],
+['🦁🐭',['शेर और चूहा','The Lion and the Mouse'],['शेर ने एक छोटे चूहे को छोड़ दिया। बाद में शेर जाल में फँसा तो चूहे ने जाल काट दिया। सीख: कोई भी छोटा नहीं होता।','A lion let a little mouse go. Later the lion was caught in a net and the mouse cut it. Moral: no friend is too small.']],
+['👦🐺',['झूठा लड़का','The Boy Who Cried Wolf'],['एक लड़का मज़ाक में "भेड़िया आया" चिल्लाता था। जब सच में भेड़िया आया तो किसी ने भरोसा नहीं किया। सीख: हमेशा सच बोलो।','A boy often shouted "Wolf!" as a joke. When a wolf really came, nobody believed him. Moral: always tell the truth.']]
+];
+/* ===== और सामग्री ===== */
+SCIENCE[0].push(...parse(`
+👅~हम स्वाद किससे लेते हैं?~What do we taste with?~जीभ=Tongue~कान=Ears~आँख=Eyes
+✋~हम किससे छूते और पकड़ते हैं?~What do we use to hold things?~हाथ=Hands~कान=Ears~नाक=Nose
+🦁~जंगल का राजा किसे कहते हैं?~Who is called the king of the jungle?~शेर=Lion~खरगोश=Rabbit~बकरी=Goat
+🐘~सबसे लंबी सूँड किसकी होती है?~Which animal has a long trunk?~हाथी=Elephant~घोड़ा=Horse~कुत्ता=Dog
+🥚~अंडे कौन देती है?~Who lays eggs?~मुर्गी=Hen~गाय=Cow~बिल्ली=Cat
+🐶~भौं-भौं कौन करता है?~Who says woof?~कुत्ता=Dog~बिल्ली=Cat~गाय=Cow
+🐱~म्याऊँ कौन करती है?~Who says meow?~बिल्ली=Cat~बकरी=Goat~शेरनी=Lioness
+🌙~रात के आसमान में क्या दिखता है?~What do we see in the night sky?~चाँद=Moon~इंद्रधनुष=Rainbow~दोपहर=Noon
+🧊~बर्फ़ कैसी होती है?~How does ice feel?~ठंडी=Cold~गरम=Hot~नमकीन=Salty
+🔥~आग कैसी होती है?~How is fire?~गरम=Hot~ठंडी=Cold~गीली=Wet
+🧼~हाथ किससे धोते हैं?~What do we wash hands with?~साबुन और पानी=Soap and water~मिट्टी=Mud~तेल=Oil
+🌿~पत्तियाँ आम तौर पर किस रंग की होती हैं?~What colour are most leaves?~हरा=Green~नीला=Blue~गुलाबी=Pink`));
+SCIENCE[1].push(...parse(`
+🐪~रेगिस्तान का जहाज़ किसे कहते हैं?~Which is called the ship of the desert?~ऊँट=Camel~घोड़ा=Horse~हाथी=Elephant
+🦋~तितली पहले क्या होती है?~What is a butterfly before it grows wings?~इल्ली=Caterpillar~मेंढक=Frog~चूज़ा=Chick
+🐸~मेंढक के बच्चे को क्या कहते हैं?~What is a baby frog called?~टैडपोल=Tadpole~पिल्ला=Puppy~बछड़ा=Calf
+🐄~गाय के बच्चे को क्या कहते हैं?~What is a baby cow called?~बछड़ा=Calf~मेमना=Lamb~पिल्ला=Puppy
+🌵~बहुत कम पानी में कौन सा पौधा रह सकता है?~Which plant can live with very little water?~कैक्टस=Cactus~कमल=Lotus~धान=Paddy
+🪷~कमल कहाँ उगता है?~Where does a lotus grow?~पानी में=In water~रेत में=In sand~बर्फ़ में=In snow
+🥛~हड्डियाँ मज़बूत करने में क्या मदद करता है?~What helps make bones strong?~दूध=Milk~टॉफ़ी=Candy~चिप्स=Chips
+🏠~बर्फ़ से बने घर को क्या कहते हैं?~What is a house made of snow called?~इग्लू=Igloo~तंबू=Tent~झोपड़ी=Hut
+🐦~पक्षी का घर क्या कहलाता है?~What is a bird's home called?~घोंसला=Nest~बिल=Burrow~अस्तबल=Stable
+💨~हम साँस में क्या लेते हैं?~What do we breathe in?~हवा=Air~पानी=Water~धुआँ=Smoke
+🗑️~कूड़ा कहाँ डालें?~Where should we throw waste?~कूड़ेदान में=In the dustbin~सड़क पर=On the road~नदी में=In the river
+🚰~पानी बचाने के लिए क्या करें?~How can we save water?~नल बंद करें=Close the tap~नल खुला छोड़ें=Leave the tap open~पानी बहाएँ=Spill water`));
+SCIENCE[2].push(...parse(`
+🍃~पत्तियों का हरा रंग किससे होता है?~What makes leaves green?~क्लोरोफ़िल=Chlorophyll~हीमोग्लोबिन=Haemoglobin~नमक=Salt
+🌡️~समुद्र तल पर शुद्ध पानी किस तापमान पर उबलता है?~At what temperature does pure water boil at sea level?~100°C~50°C~0°C
+🧊~शुद्ध पानी किस तापमान पर जमता है?~At what temperature does pure water freeze?~0°C~10°C~100°C
+🪐~किस ग्रह के छल्ले सबसे साफ़ दिखते हैं?~Which planet is famous for its rings?~शनि=Saturn~मंगल=Mars~बुध=Mercury
+🪐~सौरमंडल का सबसे बड़ा ग्रह कौन सा है?~Which is the largest planet?~बृहस्पति=Jupiter~पृथ्वी=Earth~शुक्र=Venus
+☀️~सूरज क्या है?~What is the Sun?~एक तारा=A star~एक ग्रह=A planet~एक उपग्रह=A satellite
+🌙~पृथ्वी का प्राकृतिक उपग्रह कौन सा है?~Earth's natural satellite is?~चंद्रमा=Moon~सूरज=Sun~मंगल=Mars
+🌱~बीज से पौधा निकलना क्या कहलाता है?~A seed starting to grow is called?~अंकुरण=Germination~वाष्पीकरण=Evaporation~पाचन=Digestion
+🩸~खून का लाल रंग किससे होता है?~What makes blood red?~हीमोग्लोबिन=Haemoglobin~क्लोरोफ़िल=Chlorophyll~विटामिन सी=Vitamin C
+🍊~संतरे में कौन सा विटामिन भरपूर होता है?~Oranges are rich in which vitamin?~विटामिन C=Vitamin C~विटामिन D=Vitamin D~विटामिन K=Vitamin K
+🌞~धूप से शरीर कौन सा विटामिन बनाता है?~Which vitamin does the body make in sunlight?~विटामिन D=Vitamin D~विटामिन C=Vitamin C~विटामिन B=Vitamin B
+🐋~कौन सा समुद्री जीव स्तनधारी है?~Which sea animal is a mammal?~व्हेल=Whale~शार्क=Shark~ऑक्टोपस=Octopus
+🕷️~मकड़ी के कितने पैर होते हैं?~How many legs does a spider have?~8~6~10
+🐜~कीड़ों के आम तौर पर कितने पैर होते हैं?~How many legs do insects usually have?~6~8~4`));
+GK[0].push(...parse(`
+🔺~हमारे राष्ट्रीय झंडे को क्या कहते हैं?~What is our national flag called?~तिरंगा=Tiranga~सतरंगा=Satranga~पंचरंगा=Panchranga
+🥭~भारत का राष्ट्रीय फल कौन सा है?~What is India's national fruit?~आम=Mango~केला=Banana~सेब=Apple
+🚒~आग बुझाने कौन सी गाड़ी आती है?~Which vehicle comes to put out fire?~दमकल=Fire engine~एम्बुलेंस=Ambulance~बस=Bus
+🚑~बीमार को अस्पताल कौन सी गाड़ी ले जाती है?~Which vehicle takes patients to hospital?~एम्बुलेंस=Ambulance~ट्रक=Truck~ट्रैक्टर=Tractor
+👨‍⚕️~बीमार होने पर कौन इलाज करता है?~Who treats us when we are sick?~डॉक्टर=Doctor~दर्ज़ी=Tailor~माली=Gardener
+👩‍🏫~स्कूल में कौन पढ़ाता है?~Who teaches at school?~शिक्षक=Teacher~किसान=Farmer~पायलट=Pilot
+👨‍🌾~अनाज कौन उगाता है?~Who grows our food grains?~किसान=Farmer~डाकिया=Postman~नाई=Barber
+✈️~आसमान में क्या उड़ता है?~What flies in the sky?~हवाई जहाज़=Aeroplane~नाव=Boat~साइकिल=Bicycle
+⛵~पानी पर क्या चलता है?~What moves on water?~नाव=Boat~कार=Car~रेल=Train`));
+GK[1].push(...parse(`
+🌳~भारत का राष्ट्रीय पेड़ कौन सा है?~What is India's national tree?~बरगद=Banyan~नीम=Neem~पीपल=Peepal
+🏑~कौन सा खेल स्टिक और गेंद से खेला जाता है?~Which game uses a stick and ball?~हॉकी=Hockey~कबड्डी=Kabaddi~शतरंज=Chess
+🏏~क्रिकेट टीम में मैदान पर कितने खिलाड़ी होते हैं?~How many players are in a cricket team on the field?~11~7~9
+🕌~ताजमहल किस शहर में है?~In which city is the Taj Mahal?~आगरा=Agra~जयपुर=Jaipur~पटना=Patna
+📅~15 अगस्त को क्या मनाते हैं?~What do we celebrate on 15 August?~स्वतंत्रता दिवस=Independence Day~गणतंत्र दिवस=Republic Day~बाल दिवस=Children's Day
+🧒~भारत में बाल दिवस कब मनाते हैं?~When is Children's Day in India?~14 नवंबर=14 November~5 सितंबर=5 September~2 अक्टूबर=2 October
+👩‍🏫~भारत में शिक्षक दिवस कब मनाते हैं?~When is Teachers' Day in India?~5 सितंबर=5 September~14 नवंबर=14 November~26 जनवरी=26 January
+🕰️~एक दिन में कितने घंटे होते हैं?~How many hours are in a day?~24~12~60
+⏱️~एक घंटे में कितने मिनट होते हैं?~How many minutes are in an hour?~60~100~24
+🖨️~कागज़ पर छापने के लिए क्या है?~Which device prints on paper?~प्रिंटर=Printer~माउस=Mouse~स्पीकर=Speaker
+🔊~कंप्यूटर से आवाज़ किससे आती है?~Which device gives sound?~स्पीकर=Speaker~कीबोर्ड=Keyboard~स्कैनर=Scanner`));
+GK[2].push(...parse(`
+✊~'राष्ट्रपिता' किन्हें कहा जाता है?~Who is called the Father of the Nation?~महात्मा गांधी=Mahatma Gandhi~सरदार पटेल=Sardar Patel~भगत सिंह=Bhagat Singh
+👤~भारत के पहले प्रधानमंत्री कौन थे?~Who was India's first Prime Minister?~जवाहरलाल नेहरू=Jawaharlal Nehru~राजेंद्र प्रसाद=Rajendra Prasad~सरदार पटेल=Sardar Patel
+👤~भारत के पहले राष्ट्रपति कौन थे?~Who was India's first President?~राजेंद्र प्रसाद=Rajendra Prasad~जवाहरलाल नेहरू=Jawaharlal Nehru~बी. आर. अंबेडकर=B. R. Ambedkar
+📘~संविधान की प्रारूप समिति के अध्यक्ष कौन थे?~Who chaired the Constitution Drafting Committee?~बी. आर. अंबेडकर=B. R. Ambedkar~महात्मा गांधी=Mahatma Gandhi~सुभाष चंद्र बोस=Subhas Chandra Bose
+🏔️~दुनिया की सबसे ऊँची पर्वत चोटी कौन सी है?~Which is the world's highest peak?~माउंट एवरेस्ट=Mount Everest~कंचनजंगा=Kangchenjunga~नंदा देवी=Nanda Devi
+🏜️~थार मरुस्थल मुख्य रूप से किस राज्य में है?~The Thar Desert is mainly in which state?~राजस्थान=Rajasthan~असम=Assam~केरल=Kerala
+🍵~चाय के बागानों के लिए कौन सा राज्य प्रसिद्ध है?~Which state is famous for tea gardens?~असम=Assam~राजस्थान=Rajasthan~पंजाब=Punjab
+🚀~भारत की अंतरिक्ष संस्था का नाम क्या है?~What is India's space agency?~ISRO~NASA~ESA
+🌍~दुनिया में कितने महाद्वीप माने जाते हैं? (आम गिनती)~How many continents are commonly counted?~7~5~9
+💾~फ़ाइल सुरक्षित रखने को क्या कहते हैं?~Keeping a file safely is called?~Save~Delete~Close
+🌐~वेबसाइट खोलने के लिए क्या इस्तेमाल होता है?~What do we use to open websites?~ब्राउज़र=Browser~कैलकुलेटर=Calculator~पेंट=Paint`));
+GRAMMAR[1].push(...parse(`
+↔️~Up का उल्टा क्या है?~What is the opposite of Up?~Down~Top~High
+↔️~Day का उल्टा क्या है?~What is the opposite of Day?~Night~Noon~Morning
+↔️~Open का उल्टा क्या है?~What is the opposite of Open?~Close~Door~Wide
+↔️~Fast का उल्टा क्या है?~What is the opposite of Fast?~Slow~Quick~Run
+📦~बहुवचन बताओ: Box~Plural of Box?~Boxes~Boxs~Box
+👶~बहुवचन बताओ: Child~Plural of Child?~Children~Childs~Childes
+📝~खाली जगह भरो: She ___ a girl.~Fill in: She ___ a girl.~is~am~are
+📝~खाली जगह भरो: They ___ playing.~Fill in: They ___ playing.~are~is~am
+📝~खाली जगह भरो: This is ___ umbrella.~Fill in: This is ___ umbrella.~an~a~many`));
+GRAMMAR[2].push(...parse(`
+⏪~Eat का भूतकाल क्या है?~Past tense of Eat?~Ate~Eated~Eaten
+⏪~Run का भूतकाल क्या है?~Past tense of Run?~Ran~Runned~Running
+⏪~See का भूतकाल क्या है?~Past tense of See?~Saw~Seed~Seen
+🦶~बहुवचन बताओ: Foot~Plural of Foot?~Feet~Foots~Feets
+🍃~बहुवचन बताओ: Leaf~Plural of Leaf?~Leaves~Leafs~Leafes
+↔️~Brave का उल्टा क्या है?~Opposite of Brave?~Cowardly~Strong~Bold
+🤝~Big का समान अर्थ वाला शब्द?~A synonym of Big?~Large~Tiny~Thin
+🤝~Begin का समान अर्थ वाला शब्द?~A synonym of Begin?~Start~End~Stop
+🐢~कौन सा क्रिया-विशेषण (adverb) है?~Which one is an adverb?~Slowly~Chair~Green
+📝~भरो: He has been here ___ Monday.~Fill in: He has been here ___ Monday.~since~for~from
+📝~भरो: I am good ___ maths.~Fill in: I am good ___ maths.~at~on~of
+❓~प्रश्न के अंत में कौन सा चिह्न लगता है?~Which mark ends a question?~?~.~,`));
+HINDI.push(...parse(`
+↔️~'ऊपर' का उल्टा शब्द क्या है?~Hindi opposite of 'ऊपर'?~नीचे~आगे~बाहर
+↔️~'सुख' का उल्टा शब्द क्या है?~Hindi opposite of 'सुख'?~दुख~आनंद~खुशी
+↔️~'अंदर' का उल्टा शब्द क्या है?~Hindi opposite of 'अंदर'?~बाहर~भीतर~पास
+↔️~'नया' का उल्टा शब्द क्या है?~Hindi opposite of 'नया'?~पुराना~ताज़ा~अच्छा
+👥~'किताब' का बहुवचन क्या है?~Plural of 'किताब'?~किताबें~किताबी~किताबघर
+👥~'कमरा' का बहुवचन क्या है?~Plural of 'कमरा'?~कमरे~कमरी~कमरबंद
+👩~'शेर' का स्त्रीलिंग क्या है?~Feminine of 'शेर'?~शेरनी~शेरी~बाघ
+👩~'अध्यापक' का स्त्रीलिंग क्या है?~Feminine of 'अध्यापक'?~अध्यापिका~अध्यापकी~विद्यार्थी
+🌙~'चाँद' का समानार्थी शब्द?~Synonym of 'चाँद'?~चंद्रमा~दिनकर~गगन
+🏠~'घर' का समानार्थी शब्द?~Synonym of 'घर'?~गृह~वन~पथ
+🌸~'फूल' का समानार्थी शब्द?~Synonym of 'फूल'?~पुष्प~पत्ता~वृक्ष
+🧢~संज्ञा की जगह आने वाले शब्द को क्या कहते हैं?~Word used in place of a noun?~सर्वनाम~क्रिया~विशेषण
+🎨~विशेषता बताने वाले शब्द को क्या कहते हैं?~A describing word is called?~विशेषण~सर्वनाम~संज्ञा`));
+WORDS.push(...`🚗|Car|कार
+🚌|Bus|बस
+🚆|Train|रेलगाड़ी
+🚲|Bicycle|साइकिल
+⛵|Boat|नाव
+🐒|Monkey|बंदर
+🐻|Bear|भालू
+🦊|Fox|लोमड़ी
+🐸|Frog|मेंढक
+🐢|Turtle|कछुआ
+🦋|Butterfly|तितली
+🐝|Bee|मधुमक्खी
+🐍|Snake|साँप
+🐪|Camel|ऊँट
+🐎|Horse|घोड़ा
+🦚|Peacock|मोर
+🍌|Banana|केला
+🍇|Grapes|अंगूर
+🍉|Watermelon|तरबूज़
+🥕|Carrot|गाजर
+🍅|Tomato|टमाटर
+🥔|Potato|आलू
+🧅|Onion|प्याज़
+🥛|Milk|दूध
+🍞|Bread|डबलरोटी
+🔑|Key|चाबी
+🪑|Chair|कुर्सी
+🛏️|Bed|पलंग
+🚪|Door|दरवाज़ा
+✏️|Pencil|पेंसिल
+✂️|Scissors|कैंची
+🥄|Spoon|चम्मच
+👁️|Eye|आँख
+👂|Ear|कान
+✋|Hand|हाथ
+⭐|Star|तारा
+🌧️|Rain|बारिश
+🔥|Fire|आग
+⛰️|Mountain|पहाड़
+🍃|Leaf|पत्ता`.split('\n').map(x=>x.split('|')));
+AKSHAR.push(...`ए|1️⃣|एक
+औ|👩|औरत
+ठ|🛒|ठेला
+थ|🍽️|थाली
+ध|🏹|धनुष
+य|🔥|यज्ञ
+व|🌳|वन
+श|🍯|शहद`.split('\n').map(x=>x.split('|')));
+STORIES.push(
+['🐜🕊️',['चींटी और कबूतर','The Ant and the Dove'],['एक चींटी पानी में गिर गई। कबूतर ने पत्ता गिराकर उसे बचाया। बाद में चींटी ने शिकारी को काटकर कबूतर की जान बचाई। सीख: भलाई लौटकर आती है।','An ant fell into water and a dove dropped a leaf to save it. Later the ant bit a hunter and saved the dove. Moral: kindness comes back.']],
+['🦊🍇',['लोमड़ी और अंगूर','The Fox and the Grapes'],['लोमड़ी ऊँचे लटके अंगूरों तक नहीं पहुँच पाई। उसने कहा, अंगूर खट्टे हैं। सीख: अपनी हार का दोष चीज़ों पर मत डालो।','A fox could not reach some grapes and said they were sour. Moral: do not blame things for your failure.']],
+['🪵🤝',['एकता में बल','Strength in Unity'],['पिता ने बेटों को लकड़ियों का गट्ठर तोड़ने को दिया। कोई नहीं तोड़ पाया, पर अलग-अलग लकड़ियाँ आसानी से टूट गईं। सीख: मिलकर रहने में ताक़त है।','A father asked his sons to break a bundle of sticks. None could, but single sticks broke easily. Moral: unity is strength.']],
+['🐒🐊',['बंदर और मगरमच्छ','The Monkey and the Crocodile'],['मगरमच्छ बंदर का कलेजा चाहता था। बंदर ने कहा कि वह तो पेड़ पर रखा है, और किनारे पहुँचते ही पेड़ पर चढ़ गया। सीख: मुश्किल में समझदारी से काम लो।','A crocodile wanted the monkey\'s heart. The monkey said he had left it on the tree, and climbed away once back ashore. Moral: stay clever in trouble.']],
+['🥚🪿',['सोने का अंडा','The Golden Egg'],['एक हंस रोज़ सोने का अंडा देता था। लालची आदमी ने सब अंडे एक साथ पाने के लिए उसे मार दिया और कुछ न मिला। सीख: लालच बुरी बला है।','A goose laid one golden egg a day. A greedy man killed it to get all the eggs and got nothing. Moral: greed loses everything.']],
+['🐐🌉',['दो बकरियाँ','The Two Goats'],['एक पतले पुल पर दो बकरियाँ आमने-सामने आईं। एक बैठ गई और दूसरी उसके ऊपर से निकल गई। दोनों सुरक्षित पार हुईं। सीख: समझदारी और सहयोग से रास्ता बनता है।','Two goats met on a narrow bridge. One lay down and the other stepped over, so both crossed safely. Moral: cooperation finds a way.']],
+['🐦🌾',['गौरैया का घोंसला','The Sparrow\'s Nest'],['गौरैया रोज़ एक-एक तिनका लाती रही। कई दिनों बाद उसका सुंदर घोंसला बन गया। सीख: थोड़ा-थोड़ा करके बड़ा काम पूरा होता है।','A sparrow brought one straw at a time, and in some days had a lovely nest. Moral: little by little, big things get done.']],
+['🌱👧',['रीना का पौधा','Reena\'s Plant'],['रीना ने एक बीज बोया और रोज़ पानी दिया। उसने धैर्य रखा और एक दिन नन्हा पौधा निकल आया। सीख: देखभाल और धैर्य से फल मिलता है।','Reena sowed a seed and watered it daily. She waited patiently until a tiny plant appeared. Moral: care and patience pay off.']]
+);
+/* ---------- प्रश्न बनाना ---------- */
+const numOpts=(a)=>{const s=new Set([a]);while(s.size<3){const v=a+rnd(7)-3;if(v>=0)s.add(v)}return [...s].map(v=>[String(v),String(v)])};
+const mk=(p,hi,en,o,eh,ee)=>({p,hi,en,o,eh:eh||'',ee:ee||''});
+const fromBank=list=>shuffle(list).map(x=>mk(x.p,x.hi,x.en,x.o));
+const take=(arr,make)=>shuffle(arr).slice(0,8).map(make);
+const three=(item,all)=>[item,...shuffle(all.filter(x=>x!==item)).slice(0,2)];
+const repeat=make=>Array.from({length:8},make);
+
+const GAMES=[
+{id:'abc',icon:'🔤',name:['अक्षरों का जंगल','ABC Jungle Safari'],desc:['अक्षर, शब्द और व्याकरण','Letters, words and grammar'],gen(){
+ if(band()===0)return take(WORDS,w=>mk(w[0],`${w[1]} किस अक्षर से शुरू होता है?`,`Which letter does ${w[1]} start with?`,three(w[1][0],[...'ABCDEFGHIJKLMNOPRSTUVWZ']).map(c=>[c,c]),`${w[1][0]} से ${w[1]}।`,`${w[1][0]} is for ${w[1]}.`));
+ return fromBank(GRAMMAR[band()]).slice(0,8)}},
+{id:'count',icon:'🔢',name:['गिनती एक्सप्रेस 🚂','Counting Express 🚂'],desc:['गिनो और संख्या पहचानो','Count and practise numbers'],gen(){
+ return repeat(()=>{
+  if(band()===0){const n=1+rnd(S.cls?10:5),p=pick(['🍎','⭐','🎈','🐠','🚗']);return mk(p.repeat(n),'कितने हैं? गिनो।','How many? Count.',numOpts(n),`गिनने पर ${n} हुए।`,`Counting gives ${n}.`)}
+  const n=10+rnd(band()===1?89:9000);return mk(String(n),`${n} के बाद कौन सी संख्या आती है?`,`Which number comes after ${n}?`,numOpts(n+1),`${n} में 1 जोड़ें।`,`Add 1 to ${n}.`)})}},
+{id:'maths',icon:'➕',name:['जादूगर का गणित','Wizard Maths'],desc:['जोड़, घटाव, गुणा, भाग','Add, subtract, multiply, divide'],gen(){
+ return repeat(()=>{
+  const c=S.cls,op=pick(c<3?['+']:c===3?['+','−']:c===4?['+','−','×']:['+','−','×','÷']);
+  const max=[3,5,9,50,200,500,999][c];let a=1+rnd(max),b=1+rnd(max),r;
+  if(op==='×'){a=2+rnd(c===4?8:11);b=2+rnd(9)}
+  if(op==='−'&&b>a)[a,b]=[b,a];
+  if(op==='÷'){b=2+rnd(9);r=2+rnd(11);a=b*r}else r=op==='+'?a+b:op==='−'?a-b:a*b;
+  const w={'+':['जोड़','plus'],'−':['घटाव','minus'],'×':['गुणा','times'],'÷':['भाग','divided by']}[op];
+  return mk(c<3?`${'🍓'.repeat(a)} + ${'🍓'.repeat(b)}`:`${a} ${op} ${b}`,`${a} ${op} ${b} कितना होगा? (${w[0]})`,`What is ${a} ${w[1]} ${b}?`,numOpts(r),`${a} ${op} ${b} = ${r}`,`${a} ${w[1]} ${b} equals ${r}.`)})}},
+{id:'word',icon:'🧩',name:['शब्दों के जासूस','Word Detectives'],desc:['चित्र से शब्द पहचानो','Match pictures with words'],gen(){
+ return take(WORDS,w=>mk(w[0],'इसे अंग्रेज़ी में क्या कहते हैं?','What is this called in English?',three(w,WORDS).map(x=>[x[1],x[1]]),`${w[2]} को ${w[1]} कहते हैं।`,`This is ${w[1]}.`))}},
+{id:'hindi',icon:'📖',name:['अक्षर महल','Akshar Palace'],desc:['अक्षर, शब्द और व्याकरण','Akshar, words and grammar'],gen(){
+ if(band()<2)return take(AKSHAR,a=>mk(a[1],`'${a[2]}' किस अक्षर से शुरू होता है?`,`Which akshar does '${a[2]}' start with?`,three(a,AKSHAR).map(x=>[x[0],x[0]]),`${a[0]} से ${a[2]}।`,`${a[2]} starts with ${a[0]}.`));
+ return fromBank(HINDI).slice(0,8)}},
+{id:'sci',icon:'🔬',name:['नन्हे वैज्ञानिक','Little Scientists'],desc:['शरीर, पौधे, जानवर, अंतरिक्ष','Body, plants, animals, space'],gen:()=>fromBank(SCIENCE[band()]).slice(0,8)},
+{id:'gk',icon:'🌏',name:['दुनिया की सैर','World Explorer'],desc:['देश, दुनिया और कंप्यूटर','India, world and computers'],gen:()=>fromBank(GK[band()]).slice(0,8)},
+{id:'brain',icon:'🧠',name:['सुपर दिमाग','Super Brain'],desc:['पैटर्न देखो और हल करो','Notice patterns and solve'],gen(){
+ return repeat(()=>{
+  if(band()===0){const [a,b,c]=shuffle(['🔴','🔵','🟢','🟡','🟣']);return mk(`${a}${b}${a}${b}${a}❓`,'आगे क्या आएगा?','What comes next?',[b,a,c].map(x=>[x,x]),'दो रंग बारी-बारी से आ रहे हैं।','The two colours take turns.')}
+  const step=band()===1?pick([2,5,10]):3+rnd(10),s=1+rnd(20),q=[0,1,2,3].map(i=>s+i*step);
+  return mk(`${q.join(', ')}, ❓`,'अगली संख्या क्या होगी?','What is the next number?',numOpts(s+4*step),`हर बार ${step} बढ़ रहा है।`,`It grows by ${step} each time.`)})}},
+{id:'match',icon:'🃏',name:['जादुई जोड़ियाँ','Magic Pairs'],desc:['कार्ड पलटो, याददाश्त बढ़ाओ','Flip cards, boost memory'],open:memory},
+{id:'trace',icon:'✍️',name:['जादुई कलम','Magic Pencil'],desc:['उँगली से अक्षर और अंक लिखो','Write with your finger'],open:trace},
+{id:'report',icon:'📊',name:['मेरी तरक्की','My Progress'],desc:['विषय के अनुसार प्रगति','Progress by subject'],open:report},
+{id:'island',icon:'🏝️',pro:1,name:['खज़ाने का टापू','Treasure Island'],desc:['खज़ाना खोलो, सवाल हल करो','Open chests and solve quests'],open:island},
+{id:'art',icon:'🎨',pro:1,name:['रंगों की दुनिया','Colour Kingdom'],desc:['रंग भरो और चित्र बनाओ','Colour and draw'],open:art},
+{id:'story',icon:'📜',pro:1,name:['कहानियों का पिटारा','Story Treasure Box'],desc:['सुनने वाली कहानियाँ और अभ्यास','Read-along stories and practice'],open:library}
+];
+
+/* ---------- आवाज़ ---------- */
+// आवाज़ न चले तो चुप रहने के बजाय कारण बताओ
+function warn(msg){
+ let t=$('toast');
+ if(!t){t=el('div');t.id='toast';t.setAttribute('role','alert');t.style.cssText='position:fixed;left:12px;right:12px;bottom:14px;z-index:9;background:#fff3b0;color:#172044;padding:14px;border-radius:16px;box-shadow:0 8px 20px #0006;text-align:center';document.body.append(t)}
+ t.textContent=msg;t.hidden=false;clearTimeout(warn.timer);warn.timer=setTimeout(()=>t.hidden=true,7000);
+}
+const NO_VOICE='🔇 यहाँ आवाज़ नहीं चल सकती। इस फ़ाइल को Chrome ब्राउज़र में खोलें।';
+let current;
+function speak(text,l){
+ if(!window.speechSynthesis||!window.SpeechSynthesisUtterance)return warn(NO_VOICE);
+ speechSynthesis.cancel();
+ const u=current=new SpeechSynthesisUtterance(text);
+ u.lang=l==='hi'?'hi-IN':'en-IN';u.rate=.85;
+ const voices=speechSynthesis.getVoices();
+ const v=voices.find(x=>x.lang.replace('_','-')===u.lang)||voices.find(x=>x.lang.startsWith(l));
+ if(v)u.voice=v;
+ let started=false;
+ u.onstart=()=>started=true;
+ u.onerror=e=>{if(e.error!=='canceled'&&e.error!=='interrupted')warn('🔇 आवाज़ नहीं चली। फ़ोन की Text-to-speech सेटिंग में हिंदी और English आवाज़ जाँचें।')};
+ speechSynthesis.speak(u);
+ setTimeout(()=>{if(current===u&&!started&&!speechSynthesis.speaking)warn('🔇 आवाज़ शुरू नहीं हुई। Chrome में खोलें, और मीडिया वॉल्यूम व Text-to-speech सेटिंग जाँचें।')},2500);
+}
+const stop=()=>window.speechSynthesis&&speechSynthesis.cancel();
+function voice(hi,en){
+ const d=el('div','voice');
+ d.append(btn('', '🔊 हिं',()=>speak(hi,'hi')),btn('','🔊 EN',()=>speak(en,'en')));
+ return d;
+}
+function pics(p){
+ const d=el('div','pics');
+ const isText=/^[0-9A-Za-z]/.test(p);
+ const parts=isText?[p]:[...new Intl.Segmenter().segment(p)].map(x=>x.segment).filter(x=>x.trim());
+ parts.forEach((x,i)=>{const s=el('span',isText?'txt':'',x);s.style.animationDelay=i*.15+'s';if(parts.length>8)s.style.fontSize='2rem';d.append(s)});
+ return d;
+}
+function party(){
+ for(let i=0;i<24;i++){const c=el('span','confetti',pick(['⭐','🎉','✨','🎈']));c.style.left=rnd(95)+'vw';c.style.animationDelay=Math.random()+'s';document.body.append(c);setTimeout(()=>c.remove(),3500)}
+}
+
+/* ---------- पेज ---------- */
+let view=home;
+function render(fn){stop();view=fn;$('lang').textContent=T('English','हिंदी');$('app').innerHTML='';fn($('app'));scrollTo(0,0)}
+// फ़ोन का Back बटन: अंदर के पेज से होम पर लौटता है, वेबसाइट बंद नहीं होती
+const inside=()=>history.state==='sub';
+function go(fn){
+ if(fn===home&&inside()){history.back();return}
+ if(fn!==home&&!inside()){try{history.pushState('sub','')}catch(e){}}
+ render(fn);
+}
+addEventListener('popstate',()=>render(home));
+if(inside())history.replaceState(null,'');
+const head=(a,title,sub)=>a.append(el('h2','',title),el('p','sub',sub));
+
+function home(a){
+ const hero=el('div','hero');
+ hero.innerHTML='<h1>✨ Rishika Kids Learning Zone ✨</h1><div class="stage"><div class="cube"></div></div>';
+ const cube=hero.querySelector('.cube');
+ ['🦁','🚀','📚','🎨','🔢','🌈'].forEach((x,i)=>{const f=el('i','',x);f.style.transform=['','rotateY(90deg)','rotateY(180deg)','rotateY(-90deg)','rotateX(90deg)','rotateX(-90deg)'][i]+' translateZ(38px)';cube.append(f)});
+ [['🪐',6,45],['🦋',84,50],['⭐',14,72],['🎈',80,75]].forEach(([x,l,t],i)=>{const f=el('span','float',x);f.style.cssText=`left:${l}%;top:${t}%;animation-delay:${i*.5}s`;hero.append(f)});
+ hero.append(el('p','',T('जहाँ हर सवाल एक रोमांच है!','Where every question is an adventure!')));
+ a.append(hero);
+ head(a,T('🚀 आप किस उड़ान पर हो?','🚀 Pick your launch pad'),T('सवाल आपकी कक्षा के हिसाब से आते हैं।','Activities adapt to your class.'));
+ const cg=el('div','classes');
+ CLASSES.forEach((c,i)=>{const b=btn('cls'+(i===S.cls?' on':''),'',()=>{S.cls=i;save();const y=scrollY;go(home);scrollTo(0,y)});b.append(el('span','','🎒'),c);cg.append(b)});
+ a.append(cg);
+ const st=el('div','stats');
+ [['⭐ '+S.stars,T('सितारे','Stars earned')],[S.played,T('खेल खेले','Games played')],[S.best+'%',T('सबसे अच्छा','Best accuracy')]].forEach(([v,l])=>{const d=el('div');d.append(el('b','',v),el('small','',l));st.append(d)});
+ a.append(st);
+ head(a,T('🪐 अंतरिक्ष यात्रा','🪐 Space Journey'),T('किसी भी ग्रह पर उतरो और खज़ाना जीतो!','Land on any planet and win stars!'));
+ const gg=el('div','games');
+ GAMES.forEach(g=>{
+  const locked=g.pro&&!premium;
+  const card=el('div','game'+(g.pro?' pro':''));
+  if(g.pro)card.append(el('span','tag',T('PREMIUM • अभी मुफ़्त','PREMIUM • Free now')));
+  const fx=el('div','fx');
+  const bits={abc:['A','B','C'],count:['1','2','3'],maths:['➕','✖️','➗'],word:['🍎','🐘','🪁'],hindi:['अ','क','म'],sci:['🪐','🌱','🧪'],gk:['🌍','🏔️','✈️'],brain:['💡','❓','⚡'],match:['🃏','💫','🎴'],trace:['✏️','🖍️','✨'],report:['⭐','🏅','📈'],island:['💎','🐚','🪙'],art:['🎨','🖌️','🌈'],story:['🧚','🏰','🐉']}[g.id];
+  bits.forEach((x,i)=>{const e=el('b','',x);e.style.cssText=`left:${8+i*32}%;animation-delay:-${i*1.7}s`;fx.append(e)});
+  card.append(fx,el('div','icon',g.icon),el('h3','',T(...g.name)),el('p','',T(...g.desc)));
+  card.append(btn('play',locked?'🔒 Preview':T('चलो खेलें 🚀',"Let's go 🚀"),()=>locked?go(x=>paywall(x,g)):g.open?go(g.open):start(g)));
+  if(g.gen)card.append(btn('pill',T('🔮 जादुई किताब','🔮 Magic Book'),()=>go(x=>study(x,g))));
+  card.onpointermove=e=>{const r=card.getBoundingClientRect();card.style.transform=`rotateY(${((e.clientX-r.left)/r.width-.5)*18}deg) rotateX(${(.5-(e.clientY-r.top)/r.height)*18}deg)`};
+  card.onpointerleave=card.onpointercancel=()=>card.style.transform='';
+  gg.append(card);
+ });
+ a.append(gg,el('p','ver','✨ Space Edition v9'));
+}
+function paywall(a,g){
+ const p=el('div','panel');
+ p.append(pics(g.icon),el('h2','','👑 '+T(...g.name)),el('p','sub',T(...g.desc)),el('p','sub',T('यह प्रीमियम है। माता-पिता से पूछें।','This is Premium. Please ask your parents.')));
+ p.append(btn('big',T('डेमो अनलॉक (कोई भुगतान नहीं)','Demo unlock (no payment)'),()=>{premium=true;go(home)}));
+ a.append(p);
+}
+
+// प्रश्न दिखाना (विकल्पों का पहला क्रम: सही उत्तर सबसे पहले)
+function question(a,q,onDone){
+ const p=el('div','panel'),right=q.o[0];let tries=0,done=false;
+ const opts=shuffle(q.o);
+ let say=[`${q.hi} विकल्प: ${opts.map(o=>o[0]).join('। ')}`,`${q.en} Options: ${opts.map(o=>o[1]).join(', ')}`];
+ const sound=el('div','voice');
+ sound.append(btn('','🔊 हिं',()=>speak(say[0],'hi')),btn('','🔊 EN',()=>speak(say[1],'en')));
+ p.append(pics(q.p),el('h3','',T(q.hi,q.en)),sound);
+ opts.forEach(o=>{
+  const row=el('div','opt');
+  const b=btn('',T(...o),()=>{
+   if(done||b.classList.contains('no'))return;
+   if(o!==right){tries++;b.classList.add('no');speak(T('फिर कोशिश करो','Try again'),S.lang);return}
+   done=true;b.classList.add('ok');
+   const hi=`शाबाश! सही उत्तर है ${right[0]}। ${q.eh||''}`,en=`Well done! The answer is ${right[1]}. ${q.ee||''}`;
+   const ans=el('div');
+   say=[hi,en];
+   ans.append(el('div','owl','🦉'),pics(q.p),el('p','',T(hi,en)));
+   p.append(ans);party();speak(T(hi,en),S.lang);onDone(tries===0,ans);
+   ans.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+  row.append(b);p.append(row);
+ });
+ a.append(p);
+}
+function start(g){
+ const list=g.gen();let i=0,good=0;
+ const step=a=>{
+  if(i>=list.length){
+   const pc=Math.round(good*100/list.length);
+   const p=el('div','panel');
+   p.append(el('div','owl','🏆'),el('h2','',T('शाबाश!','Great job!')),el('p','sub',T(`पहली बार में सही: ${good}/${list.length}`,`Right on first try: ${good}/${list.length}`)),btn('big',T('फिर खेलें','Play again'),()=>start(g)));
+   a.append(p);party();return;
+  }
+  head(a,T(...g.name),`${CLASSES[S.cls]} • ${i+1}/${list.length}`);
+  question(a,list[i],(first,box)=>{
+   if(first){good++;S.stars++}
+   S.rep=S.rep||{};const r=S.rep[g.id]||(S.rep[g.id]={all:0,good:0});r.all++;if(first)r.good++;
+   if(i===list.length-1){S.played++;S.best=Math.max(S.best,Math.round(good*100/list.length))}
+   save();
+   box.append(btn('big',T('आगे ➡️','Next ➡️'),()=>{i++;go(step)}));
+  });
+ };
+ go(step);
+}
+function material(g){
+ const b=band();
+ const bank=g.id==='sci'?SCIENCE[b]:g.id==='gk'?GK[b]:g.id==='hindi'&&b===2?HINDI:g.id==='abc'&&b>0?GRAMMAR[b]:null;
+ if(bank)return bank.map(x=>mk(x.p,x.hi,x.en,x.o));
+ const seen=new Map();for(let i=0;i<12;i++)g.gen().forEach(q=>seen.set(q.p+q.en,q));
+ return [...seen.values()].slice(0,40);
+}
+function study(a,g){
+ head(a,'📘 '+T(...g.name),CLASSES[S.cls]+' • '+T('पढ़ो और सुनो','Read and listen'));
+ const p=el('div','panel');
+ material(g).forEach(q=>{
+  const d=el('div','note'),r=q.o[0];
+  d.append(pics(q.p),el('b','',T(q.hi,q.en)),el('p','','✅ '+T(...r)+' '+T(q.eh,q.ee)),voice(`${q.hi} उत्तर: ${r[0]}। ${q.eh}`,`${q.en} Answer: ${r[1]}. ${q.ee}`));
+  p.append(d);
+ });
+ a.append(p);
+}
+function island(a){
+ head(a,'🏝️ '+T('खज़ाना द्वीप','Treasure Island'),T('कोई खज़ाना छुओ।','Tap a treasure chest.'));
+ const sea=el('div','island'),land=el('div','land'),box=el('div');
+ const free=GAMES.filter(g=>g.gen);
+ [[50,12],[73,20],[86,41],[84,65],[68,82],[45,87],[23,78],[13,58],[16,35],[29,19]].forEach(([x,y])=>{
+  const c=btn('chest','🎁',()=>{box.innerHTML='';question(box,pick(free).gen()[0],first=>{c.textContent='💎';if(first){S.stars++;save()}});box.scrollIntoView({behavior:'smooth'})});
+  c.style.left=x+'%';c.style.top=y+'%';land.append(c);
+ });
+ const palm=el('span','chest','🌴');palm.style.cssText='left:50%;top:50%;font-size:4rem;margin:-45px -32px';
+ land.append(palm);sea.append(land);a.append(sea,box);
+}
+function art(a){
+ head(a,'🎨 '+T('कला स्टूडियो','Art Studio'),T('उँगली से चित्र बनाओ।','Draw with your finger.'));
+ const p=el('div','panel'),c=el('canvas');c.width=600;c.height=600;
+ const x=c.getContext('2d');x.lineWidth=14;x.lineCap='round';let col='#e0245e',on=false;
+ const at=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*600/r.width,(e.clientY-r.top)*600/r.height]};
+ c.onpointerdown=e=>{on=true;c.setPointerCapture(e.pointerId);x.beginPath();x.moveTo(...at(e))};
+ c.onpointermove=e=>{if(on){x.strokeStyle=col;x.lineTo(...at(e));x.stroke()}};
+ c.onpointerup=c.onpointercancel=()=>on=false;
+ p.append(c);
+ const ideas=el('div');p.append(el('p','sub',T('कोई चित्र चुनो और उस पर रंग भरो:','Pick a picture and paint over it:')),ideas);
+ ['🏠','🌳','🌸','🐘','🐟','🦋','🚗','🚀','☀️','🍎','🐰','⛵'].forEach(i=>ideas.append(btn('pill',i,()=>{x.clearRect(0,0,600,600);x.save();x.globalAlpha=.25;x.font='420px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(i,300,330);x.restore()})));
+ ['#e0245e','#ff9800','#ffd600','#2e9e44','#2962ff','#8e24aa','#111111','#ffffff'].forEach(k=>{const d=btn('dot','',()=>col=k);d.style.background=k;d.setAttribute('aria-label','colour '+k);p.append(d)});
+ p.append(el('br'),btn('big',T('साफ़ करें','Clear'),()=>x.clearRect(0,0,600,600)));a.append(p);
+}
+function memory(a){
+ head(a,'🃏 '+T('जोड़ी मिलाओ','Memory Match'),T('एक जैसे चित्र और शब्द ढूँढो।','Find each picture and its word.'));
+ const pairs=[3,4,6][band()];
+ const cards=shuffle(shuffle(WORDS).slice(0,pairs).flatMap(w=>[{w,face:w[0]},{w,face:T(w[2],w[1])}]));
+ const info=el('p','sub'),grid=el('div','mgrid');
+ let open=[],found=0,moves=0;
+ cards.forEach(c=>{
+  const b=btn('mcard','',()=>{
+   if(open.length===2||b.classList.contains('up'))return;
+   b.classList.add('up');open.push({b,c});
+   if(open.length<2)return;
+   moves++;info.textContent=T('चालें: ','Moves: ')+moves;
+   const [x,y]=open;
+   if(x.c.w===y.c.w){
+    open=[];found++;x.b.classList.add('done');y.b.classList.add('done');speak(T(c.w[2],c.w[1]),S.lang);
+    if(found===pairs){S.stars+=pairs;S.played++;save();party();a.append(btn('big',T('फिर खेलें','Play again'),()=>go(memory)))}
+   }else setTimeout(()=>{x.b.classList.remove('up');y.b.classList.remove('up');open=[]},900);
+  });
+  const inner=el('span');inner.append(el('i','','❓'),el('i','',c.face));b.append(inner);grid.append(b);
+ });
+ a.append(info,grid);
+}
+function trace(a){
+ head(a,'✍️ '+T('अक्षर लिखो','Trace Letters'),T('हल्के अक्षर पर उँगली फेरो।','Trace over the faint letter.'));
+ const sets=[['अ आ इ',AKSHAR.map(x=>x[0])],['ABC',[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ']],['123',[...'0123456789']]];
+ let list=sets[0][1],i=0,drawn=0,on=false;
+ const tabs=el('div','top'),p=el('div','panel'),c=el('canvas'),msg=el('p','sub');
+ c.width=c.height=600;const x=c.getContext('2d');
+ const paint=()=>{
+  drawn=0;msg.textContent='';x.clearRect(0,0,600,600);
+  x.fillStyle='#cfd8f7';x.font='400px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(list[i],300,320);
+ };
+ const at=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*600/r.width,(e.clientY-r.top)*600/r.height]};
+ c.onpointerdown=e=>{on=true;c.setPointerCapture(e.pointerId);x.beginPath();x.moveTo(...at(e))};
+ c.onpointermove=e=>{if(!on)return;x.strokeStyle='#e0245e';x.lineWidth=28;x.lineCap='round';x.lineTo(...at(e));x.stroke();drawn++};
+ c.onpointerup=c.onpointercancel=()=>{on=false;if(drawn>15)msg.textContent=T('👏 अच्छा अभ्यास!','👏 Nice practice!')};
+ sets.forEach(([label,l])=>tabs.append(btn('pill',label,()=>{list=l;i=0;paint()})));
+ p.append(c,msg,
+  btn('pill','🔊',()=>speak(list[i],/[A-Z0-9]/.test(list[i])?'en':'hi')),' ',
+  btn('pill',T('मिटाओ','Clear'),paint),' ',
+  btn('big',T('अगला ➡️','Next ➡️'),()=>{i=(i+1)%list.length;paint()}));
+ a.append(tabs,p);paint();
+}
+function report(a){
+ head(a,'📊 '+T('माता-पिता रिपोर्ट','Parent Report'),T('पहली बार में सही उत्तर (सभी कक्षाएँ)','Right on first try (all classes)'));
+ const p=el('div','panel');
+ GAMES.filter(g=>g.gen).forEach(g=>{
+  const r=(S.rep||{})[g.id],pc=r?Math.round(r.good*100/r.all):0;
+  const d=el('div','note'),bar=el('div','bar'),fill=el('i');fill.style.width=pc+'%';bar.append(fill);
+  d.append(el('b','',g.icon+' '+T(...g.name)),el('p','',r?`${r.good}/${r.all} (${pc}%)`:T('अभी अभ्यास नहीं हुआ','Not practised yet')),bar);
+  p.append(d);
+ });
+ p.append(el('br'),btn('pill',T('रिपोर्ट मिटाएँ','Reset report'),()=>{if(confirm(T('रिपोर्ट मिटाएँ?','Reset report?'))){S.rep={};save();go(report)}}));
+ a.append(p);
+}
+function library(a){
+ head(a,'📜 '+T('कहानियाँ और वर्कशीट','Stories & Worksheets'),CLASSES[S.cls]);
+ STORIES.forEach(([p,t,s])=>{const d=el('div','panel');d.append(pics(p),el('h3','',T(...t)),el('p','',T(...s)),voice(t[0]+'। '+s[0],t[1]+'. '+s[1]));a.append(d)});
+ head(a,'📝 '+T('अभ्यास पत्र','Worksheet'),T('विषय चुनो, फिर प्रिंट करो।','Pick a subject, then print.'));
+ const sheet=el('div');
+ GAMES.filter(g=>g.gen).forEach(g=>a.append(btn('pill',g.icon+' '+T(...g.name),()=>{
+  sheet.innerHTML='';const d=el('div','panel');d.append(el('h3','',`${T(...g.name)} • ${CLASSES[S.cls]}`));
+  g.gen().forEach((q,i)=>{const n=el('div','note');n.append(el('b','',`${i+1}. ${T(q.hi,q.en)}`),el('p','',q.p),el('p','',shuffle(q.o).map(o=>'⬜ '+T(...o)).join('    ')));d.append(n)});
+  d.append(btn('big','🖨️ Print',()=>print()));sheet.append(d);sheet.scrollIntoView({behavior:'smooth'});
+ })));
+ a.append(sheet);
+}
+$('home').onclick=()=>go(home);
+// खेल के बीच भाषा बदलने पर वही प्रश्न दूसरी भाषा में दिखता है
+$('lang').onclick=()=>{S.lang=S.lang==='hi'?'en':'hi';save();go(view)};
+// पीछे उड़ते गुब्बारे, बादल, रॉकेट और तितलियाँ
+const bg=el('div');bg.id='bg';bg.setAttribute('aria-hidden','true');
+const fly=(icon,cls,css)=>{const s=el('span',cls,icon);s.style.cssText=css;bg.append(s)};
+['✨','⭐','🌟','✨','💫','⭐','✨','🌟','✨','💫','⭐','✨'].forEach((x,i)=>fly(x,'up',`left:${i*8+2}%;font-size:${1.4+i%3*.7}rem;animation-duration:${11+i%5*3}s;animation-delay:-${i*2.3}s`));
+['🪐','🚀','🛸','🌙','☄️','👨‍🚀'].forEach((x,i)=>fly(x,'side',`top:${6+i*16}%;font-size:${i%3?2.2:4}rem;opacity:.85;animation-duration:${16+i*4}s;animation-delay:-${i*5}s`));
+document.body.prepend(bg);
+go(home);
+</script>
+</body>
+</html>
